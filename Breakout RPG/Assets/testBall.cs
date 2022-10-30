@@ -5,26 +5,43 @@ using UnityEngine;
 public class testBall : MonoBehaviour
 {
     Rigidbody2D rb;
+    GameObject paddlePoint;
+
+    float launchSpeed = 150f;
+    bool startState = true;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        //rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        paddlePoint = GameObject.Find("Paddle").transform.GetChild(0).gameObject;
     }
 
     private void Update()
     {
-        if(Input.GetButtonDown("Jump")) //Spacebar
-        {
-            LaunchBall();
+        if(startState)
+        { 
+            if (Input.GetButtonDown("Jump")) //Spacebar
+            {
+                startState = false;
+                paddlePoint.GetComponentInParent<testPaddle>().ChangePaddleColl(true);
+
+                LaunchBall();
+            }
         }
 
         print(rb.velocity);
     }
 
+    private void FixedUpdate()
+    {
+        if(startState)
+        {
+            rb.MovePosition(paddlePoint.transform.position);
+        }
+    }
+
     void LaunchBall()
     {
-        //rb.constraints = RigidbodyConstraints2D.None;
-        rb.AddForce(Vector2.up * 100);
+        rb.AddForce(Vector2.up * launchSpeed);
     }
 }
