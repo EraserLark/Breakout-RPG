@@ -11,7 +11,7 @@ public class testBall : MonoBehaviour
     testPaddle testPaddle;
     GameObject paddle;
 
-    float launchSpeed = 150f;
+    float launchSpeed = 10f;
     float maxVelocity;
     float sqrMaxVel;
     bool startState = true;
@@ -40,7 +40,7 @@ public class testBall : MonoBehaviour
             LaunchBall();
         }
 
-        print(rb.velocity);
+        //print(rb.velocity);
     }
 
     private void FixedUpdate()
@@ -65,11 +65,10 @@ public class testBall : MonoBehaviour
 
     void LaunchBall()
     {
-        Vector2 paddleDir = testPaddle.moveDir;
-        Vector2 paddleVel = testPaddle.moveDir * testPaddle.moveSpeed;
-        //Vector2 paddleVel = paddle.GetComponent<Rigidbody2D>().velocity;
-        Vector2 finalForce = (Vector2.up * launchSpeed) + paddleVel;
-        rb.AddForce(finalForce);
+        float launchAngle = Random.Range(-50, 50);
+        Quaternion rotation = Quaternion.AngleAxis(launchAngle, Vector3.forward);
+        rb.velocity = rotation * Vector2.up * launchSpeed;
+
         circleColl.enabled = true;
     }
 }

@@ -52,6 +52,7 @@ public class testPaddle : MonoBehaviour
             Vector2 paddlePosition = this.transform.position;
             Vector2 contactPoint = collision.GetContact(0).point;
 
+            //Horizontal
             float offset = paddlePosition.x - contactPoint.x;
             float width = collision.otherCollider.bounds.size.x / 2;
 
@@ -59,8 +60,20 @@ public class testPaddle : MonoBehaviour
             float bounceAngle = (offset / width) * maxBounceAngle;
             float newAngle = Mathf.Clamp(currentAngle + bounceAngle, -maxBounceAngle, maxBounceAngle);
 
+            //Check if ball hits top half or bottom half of paddle
+            Vector2 normal = collision.GetContact(0).normal;
+            Vector2 bounceVDir = Vector2.up;
+
+            //Hit bottom
+            if (normal.y > 0)
+            {
+                bounceVDir = Vector2.down;
+                newAngle = -newAngle;
+            }
+
+            //Final calcs
             Quaternion rotation = Quaternion.AngleAxis(newAngle, Vector3.forward);
-            ball.GetComponent<Rigidbody2D>().velocity = rotation * Vector2.up * ball.GetComponent<Rigidbody2D>().velocity.magnitude;    //Magnitude is speed of ball, essentially
+            ball.GetComponent<Rigidbody2D>().velocity = rotation * bounceVDir * ball.GetComponent<Rigidbody2D>().velocity.magnitude;    //Magnitude is speed of ball, essentially
         }
     }
 }
