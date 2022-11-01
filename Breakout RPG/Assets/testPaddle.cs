@@ -5,8 +5,8 @@ using UnityEngine;
 public class testPaddle : MonoBehaviour
 {
     Rigidbody2D rb;
-    float moveSpeed = 10f;
-    Vector2 moveDir = new Vector2();
+    public float moveSpeed = 10f;
+    public Vector2 moveDir = new Vector2();
 
     float maxBounceAngle = 75f;
 
@@ -62,11 +62,5 @@ public class testPaddle : MonoBehaviour
             Quaternion rotation = Quaternion.AngleAxis(newAngle, Vector3.forward);
             ball.GetComponent<Rigidbody2D>().velocity = rotation * Vector2.up * ball.GetComponent<Rigidbody2D>().velocity.magnitude;    //Magnitude is speed of ball, essentially
         }
-    }
-
-    public void ChangePaddleColl(bool state)
-    {
-        BoxCollider2D bc = this.GetComponent<BoxCollider2D>();
-        bc.enabled = state;
     }
 }
