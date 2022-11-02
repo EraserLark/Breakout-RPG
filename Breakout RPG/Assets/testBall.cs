@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class testBall : MonoBehaviour
@@ -10,6 +8,10 @@ public class testBall : MonoBehaviour
 
     testPaddle testPaddle;
     GameObject paddle;
+
+    bool pauseBool = false;
+    Vector2 savedVelocity;
+    float savedAngularVelocity;
 
     float launchSpeed = 10f;
     float maxVelocity;
@@ -40,6 +42,19 @@ public class testBall : MonoBehaviour
             LaunchBall();
         }
 
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            pauseBool = !pauseBool;
+
+            if(pauseBool)
+            {
+                PauseBall();
+            }
+            else if(!pauseBool)
+            {
+                ResumeBall();
+            }
+        }
         //print(rb.velocity);
     }
 
@@ -70,5 +85,22 @@ public class testBall : MonoBehaviour
         rb.velocity = rotation * Vector2.up * launchSpeed;
 
         circleColl.enabled = true;
+    }
+
+    public void PauseBall()
+    {
+        savedVelocity = rb.velocity;
+        savedAngularVelocity = rb.angularVelocity;
+
+        rb.isKinematic = true;
+        rb.velocity = Vector2.zero;
+        rb.angularVelocity = 0f;
+    }
+
+    public void ResumeBall()
+    {
+        rb.isKinematic = false;
+        rb.velocity = savedVelocity;
+        rb.angularVelocity = savedAngularVelocity;
     }
 }
