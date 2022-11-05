@@ -5,6 +5,9 @@ using UnityEngine;
 public class DeathField : MonoBehaviour
 {
     StageManager stageManager;
+    
+    public delegate void BallCollide();     //Delegate
+    public event BallCollide ballIsDead;   //Event
 
     private void Awake()
     {
@@ -16,8 +19,9 @@ public class DeathField : MonoBehaviour
         testBall ball = collision.gameObject.GetComponent<testBall>();
         if(ball != null)
         {
-            ball.KillBall();
-            stageManager.RespawnBall();
+            ballIsDead?.Invoke();   //If 'ballIsDead' is not null...
+            //ball.KillBall();
+            //stageManager.RespawnBall();
         }
     }
 }
