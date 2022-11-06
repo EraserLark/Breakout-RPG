@@ -8,18 +8,30 @@ public class StageManager : MonoBehaviour
 
     GameObject ball;
     GameObject paddle;
+    GameObject winScreen;
 
     private void Awake()
     {
         prefBall = AssetDatabase.LoadAssetAtPath("Assets/Ball/Ball.prefab", typeof(GameObject));
 
-        ball = GameObject.Find("Ball");
         paddle = GameObject.Find("Paddle");
+        winScreen = GameObject.Find("Win").gameObject;
     }
 
     private void Start()
     {
-        //SpawnBall();
+        StageSetUp();
+    }
+
+    void StageSetUp()
+    {
+        winScreen.SetActive(false); //Messy, will change
+        SpawnBall();
+    }
+
+    public void SpawnBall()
+    {
+        this.ball = Instantiate(prefBall, paddle.transform.GetChild(0).transform.position, Quaternion.identity) as GameObject;
     }
 
     public void BallDeathRoutine()
@@ -28,10 +40,9 @@ public class StageManager : MonoBehaviour
         SpawnBall();
     }
 
-    public void SpawnBall()
+    public void VictoryRoutine()
     {
-        this.ball = Instantiate(prefBall, paddle.transform.GetChild(0).transform.position, Quaternion.identity) as GameObject;
-
-        GameObject.Find("TurnManager").GetComponent<TurnManager>().ball = this.ball.GetComponent<testBall>();
+        ball.GetComponent<testBall>().PauseBall();
+        winScreen.SetActive(true);
     }
 }

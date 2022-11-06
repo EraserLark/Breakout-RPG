@@ -24,8 +24,6 @@ public class EventManager : MonoBehaviour
 
     private void Start()
     {
-        //deathField.ballIsDead += ball.KillBall;
-        //deathField.ballIsDead += stageManager.SpawnBall;
         deathField.ballIsDead += stageManager.BallDeathRoutine;
     }
 

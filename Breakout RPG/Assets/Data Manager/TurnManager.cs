@@ -4,27 +4,15 @@ using UnityEngine;
 
 public class TurnManager : MonoBehaviour
 {
-    public testBall ball;
-    testPaddle paddle;
-    BrickManager bm;
-    GameObject winScreen;
+    StageManager stageManager;
 
     private void Awake()
     {
-        ball = GameObject.Find("Ball").GetComponent<testBall>();
-        paddle = GameObject.Find("Paddle").GetComponent<testPaddle>();
-        bm = GameObject.Find("BrickManager").GetComponent<BrickManager>();
-        winScreen = GameObject.Find("Win").gameObject;
-    }
-
-    private void Start()
-    {
-        winScreen.SetActive(false); //Messy, will change
+        stageManager = GameObject.Find("StageManager").GetComponent<StageManager>();
     }
 
     public void Victory()
     {
-        ball.PauseBall();
-        winScreen.SetActive(true);
+        stageManager.VictoryRoutine();
     }
 }
