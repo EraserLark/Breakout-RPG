@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TurnManager : MonoBehaviour
 {
-    testBall ball;
+    public testBall ball;
     testPaddle paddle;
     BrickManager bm;
     GameObject winScreen;
@@ -15,9 +15,13 @@ public class TurnManager : MonoBehaviour
         paddle = GameObject.Find("Paddle").GetComponent<testPaddle>();
         bm = GameObject.Find("BrickManager").GetComponent<BrickManager>();
         winScreen = GameObject.Find("Win").gameObject;
+    }
+
+    private void Start()
+    {
         winScreen.SetActive(false); //Messy, will change
     }
-    
+
     public void Victory()
     {
         ball.PauseBall();

@@ -14,10 +14,9 @@ public class EventManager : MonoBehaviour
 
     private void Awake()
     {
-        ball = GameObject.Find("Ball").GetComponent<testBall>();
+        winScreen = GameObject.Find("Win").gameObject;
         paddle = GameObject.Find("Paddle").GetComponent<testPaddle>();
         bm = GameObject.Find("BrickManager").GetComponent<BrickManager>();
-        winScreen = GameObject.Find("Win").gameObject;
         deathField = GameObject.Find("DeathField").GetComponent<DeathField>();
         turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
         stageManager = GameObject.Find("StageManager").GetComponent<StageManager>();
@@ -25,8 +24,9 @@ public class EventManager : MonoBehaviour
 
     private void Start()
     {
-        deathField.ballIsDead += ball.KillBall;
-        deathField.ballIsDead += stageManager.RespawnBall;
+        //deathField.ballIsDead += ball.KillBall;
+        //deathField.ballIsDead += stageManager.SpawnBall;
+        deathField.ballIsDead += stageManager.BallDeathRoutine;
     }
 
     void PrintMessage()
