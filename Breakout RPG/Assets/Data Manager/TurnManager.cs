@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TurnManager : MonoBehaviour
@@ -14,5 +12,35 @@ public class TurnManager : MonoBehaviour
     public void Victory()
     {
         stageManager.VictoryRoutine();
+    }
+
+    public void Defeat()
+    {
+        stageManager.DefeatRoutine();
+    }
+
+    public void Attack()
+    {
+        stageManager.AttackRoutine();
+    }
+
+    public void Choose()
+    {
+        stageManager.ChooseRoutine();
+    }
+
+    public void SwapTurnState(string newState)
+    {
+        switch (newState)
+        {
+            case "Victory":
+                Victory();
+                break;
+            case "Defeat":
+                Defeat();
+                break;
+            default:
+                break;
+        }
     }
 }

@@ -17,7 +17,7 @@ public class BrickManager : MonoBehaviour
 
         if(brickCount <= 0)
         {
-            turnManager.Victory();
+            turnManager.SwapTurnState("Victory");
         }
     }
 }

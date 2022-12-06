@@ -6,16 +6,22 @@ public class StageManager : MonoBehaviour
     //Like preloading in Godot?
     Object prefBall;
 
+    GameObject canvas;
     GameObject ball;
     GameObject paddle;
     GameObject winScreen;
+    GameObject loseScreen;
+    GameObject attackMenu;
 
     private void Awake()
     {
         prefBall = AssetDatabase.LoadAssetAtPath("Assets/Ball/Ball.prefab", typeof(GameObject));
 
         paddle = GameObject.Find("Paddle");
-        winScreen = GameObject.Find("Win").gameObject;
+        canvas = GameObject.Find("Canvas");
+        winScreen = canvas.transform.Find("Win").gameObject;
+        loseScreen = canvas.transform.Find("Lose").gameObject;
+        attackMenu = canvas.transform.Find("AttackMenu").gameObject;
     }
 
     private void Start()
@@ -26,7 +32,20 @@ public class StageManager : MonoBehaviour
     void StageSetUp()
     {
         winScreen.SetActive(false); //Messy, will change
+        loseScreen.SetActive(false);
+        attackMenu.SetActive(true);
+
+    }
+
+    public void AttackRoutine()
+    {
+        attackMenu.SetActive(false);
         SpawnBall();
+    }
+
+    public void ChooseRoutine()
+    {
+        attackMenu.SetActive(true);
     }
 
     public void SpawnBall()
@@ -37,12 +56,17 @@ public class StageManager : MonoBehaviour
     public void BallDeathRoutine()
     {
         ball.GetComponent<testBall>().KillBall();
-        SpawnBall();
+        ChooseRoutine();
     }
 
     public void VictoryRoutine()
     {
         ball.GetComponent<testBall>().PauseBall();
         winScreen.SetActive(true);
+    }
+
+    public void DefeatRoutine()
+    {
+        loseScreen.SetActive(true);
     }
 }
