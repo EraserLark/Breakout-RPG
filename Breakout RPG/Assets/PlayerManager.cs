@@ -3,18 +3,26 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour
 {
     TurnManager turnMan;
+    UIManager uiMan;
 
     private void Awake()
     {
         turnMan = GameObject.Find("TurnManager").GetComponent<TurnManager>();
+        uiMan = GameObject.Find("Canvas").GetComponent<UIManager>();
+    }
+
+    private void Start()
+    {
+        int health = PlayerData.ChangeHealth(15);
+        uiMan.SetHealth(health);
     }
 
     public void TakeDamage(int dmg)
     {
         int newHealth = PlayerData.ChangeHealth(-dmg);
-        print("Health = " + newHealth);
+        uiMan.SetHealth(newHealth);
 
-        if(newHealth <= 0)
+        if (newHealth <= 0)
         {
             turnMan.SwapTurnState("Defeat");
         }

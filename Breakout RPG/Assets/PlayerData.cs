@@ -1,11 +1,15 @@
+using UnityEngine;
+
 public static class PlayerData
 {
-    static int playerHealth = 10;
+    public static int maxHealth = 15;
+    static int currentHealth = 15;
     static int playerMoney = 30;
 
     public static int ChangeHealth(int amt)
     {
-        playerHealth += amt;
-        return playerHealth;
+        currentHealth += amt;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+        return currentHealth;
     }
 }
