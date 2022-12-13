@@ -18,8 +18,21 @@ public class GameManager : MonoBehaviour
         LoadLevel(1);
     }
 
-    void LoadLevel(int level)
+    public void LoadLevel(int level)
     {
         SceneManager.LoadScene(level);
+    }
+
+    public void LoadLevel(string levelName)
+    {
+        switch(levelName)
+        {
+            case "Overworld":
+                SceneManager.LoadScene(1);
+                break;
+            default:
+                Debug.Log("Level name does not exist");
+                break;
+        }
     }
 }

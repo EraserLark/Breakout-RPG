@@ -9,6 +9,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Global.unity
     guid: 82a67a72e875f7b499a4e64f7d9cc530
   - enabled: 1
+    path: Assets/Scenes/Overworld.unity
+    guid: 5505f92c2f493f4488d57b38dba087e4
+  - enabled: 1
     path: Assets/Scenes/Level 0.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/Level 1.unity
+    guid: d0e33a124e1c1bb4a8dbde2ce831c788
   m_configObjects: {}
