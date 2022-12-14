@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class testPaddle : MonoBehaviour
 {
+    StageManager stageMan;
+
     Rigidbody2D rb;
     public float moveSpeed = 10f;
     public Vector2 moveDir = new Vector2();
@@ -10,6 +12,7 @@ public class testPaddle : MonoBehaviour
 
     private void Awake()
     {
+        stageMan = GameObject.Find("StageManager").GetComponent<StageManager>();
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -47,31 +50,41 @@ public class testPaddle : MonoBehaviour
 
         if (ball != null)   //Checks if what collided with paddle is ball
         {
-            Vector2 paddlePosition = this.transform.position;
-            Vector2 contactPoint = collision.GetContact(0).point;
-
-            //Horizontal
-            float offset = paddlePosition.x - contactPoint.x;
-            float width = collision.otherCollider.bounds.size.x / 2;
-
-            float currentAngle = Vector2.SignedAngle(Vector2.up, ball.GetComponent<Rigidbody2D>().velocity);   //Returns angle as pos or neg
-            float bounceAngle = (offset / width) * maxBounceAngle;
-            float newAngle = Mathf.Clamp(currentAngle + bounceAngle, -maxBounceAngle, maxBounceAngle);
-
-            //Check if ball hits top half or bottom half of paddle
-            Vector2 normal = collision.GetContact(0).normal;
-            Vector2 bounceVDir = Vector2.up;
-
-            //Hit bottom
-            if (normal.y > 0)
+            //hitCount
+            ball.hitCount++;
+            if (ball.hitCount >= ball.hitMax)
             {
-                bounceVDir = Vector2.down;
-                newAngle = -newAngle;
+                stageMan.BallDeathRoutine();
             }
+            else
+            {
+                //Bounce angle
+                Vector2 paddlePosition = this.transform.position;
+                Vector2 contactPoint = collision.GetContact(0).point;
 
-            //Final calcs
-            Quaternion rotation = Quaternion.AngleAxis(newAngle, Vector3.forward);
-            ball.GetComponent<Rigidbody2D>().velocity = rotation * bounceVDir * ball.GetComponent<Rigidbody2D>().velocity.magnitude;    //Magnitude is speed of ball, essentially
+                //Horizontal
+                float offset = paddlePosition.x - contactPoint.x;
+                float width = collision.otherCollider.bounds.size.x / 2;
+
+                float currentAngle = Vector2.SignedAngle(Vector2.up, ball.GetComponent<Rigidbody2D>().velocity);   //Returns angle as pos or neg
+                float bounceAngle = (offset / width) * maxBounceAngle;
+                float newAngle = Mathf.Clamp(currentAngle + bounceAngle, -maxBounceAngle, maxBounceAngle);
+
+                //Check if ball hits top half or bottom half of paddle
+                Vector2 normal = collision.GetContact(0).normal;
+                Vector2 bounceVDir = Vector2.up;
+
+                //Hit bottom
+                if (normal.y > 0)
+                {
+                    bounceVDir = Vector2.down;
+                    newAngle = -newAngle;
+                }
+
+                //Final calcs
+                Quaternion rotation = Quaternion.AngleAxis(newAngle, Vector3.forward);
+                ball.GetComponent<Rigidbody2D>().velocity = rotation * bounceVDir * ball.GetComponent<Rigidbody2D>().velocity.magnitude;    //Magnitude is speed of ball, essentially
+            }
         }
     }
 }

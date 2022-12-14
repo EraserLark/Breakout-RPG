@@ -17,6 +17,8 @@ public class testBall : MonoBehaviour
     float maxVelocity;
     float sqrMaxVel;
     bool startState = true;
+    public int hitMax = 3;
+    public int hitCount = 0;
 
     private void Awake()
     {
