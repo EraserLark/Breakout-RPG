@@ -12,8 +12,12 @@ public class testPaddle : MonoBehaviour
 
     private void Awake()
     {
-        stageMan = GameObject.Find("StageManager").GetComponent<StageManager>();
         rb = GetComponent<Rigidbody2D>();
+    }
+
+    private void Start()
+    {
+        stageMan = GameObject.Find("StageManager").GetComponent<StageManager>();
     }
 
     private void Update()
@@ -85,6 +89,16 @@ public class testPaddle : MonoBehaviour
                 Quaternion rotation = Quaternion.AngleAxis(newAngle, Vector3.forward);
                 ball.GetComponent<Rigidbody2D>().velocity = rotation * bounceVDir * ball.GetComponent<Rigidbody2D>().velocity.magnitude;    //Magnitude is speed of ball, essentially
             }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        BrickProjectile bp = collision.gameObject.GetComponent<BrickProjectile>();
+
+        if (bp != null)
+        {
+            bp.DestroyProjectile();
         }
     }
 }

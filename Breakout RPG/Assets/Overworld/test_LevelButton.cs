@@ -6,7 +6,7 @@ public class test_LevelButton : MonoBehaviour
 {
     private GameManager gameMan;
 
-    private void Awake()
+    private void Start()
     {
         gameMan = GameObject.Find("GameManager").GetComponent<GameManager>();
     }

@@ -1458,6 +1458,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Brick (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6379311374060928923, guid: cc2cecbf89fd75b4f99311e86682cbc6, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6379311374060928923, guid: cc2cecbf89fd75b4f99311e86682cbc6, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6379311374060928923, guid: cc2cecbf89fd75b4f99311e86682cbc6, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6379311374060928926, guid: cc2cecbf89fd75b4f99311e86682cbc6, type: 3}
       propertyPath: HP
       value: 2
@@ -2388,6 +2400,14 @@ PrefabInstance:
     - target: {fileID: 6379311374060928922, guid: cc2cecbf89fd75b4f99311e86682cbc6, type: 3}
       propertyPath: m_Name
       value: Brick (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6379311374060928923, guid: cc2cecbf89fd75b4f99311e86682cbc6, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6379311374060928923, guid: cc2cecbf89fd75b4f99311e86682cbc6, type: 3}
+      propertyPath: m_Color.g
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6379311374060928926, guid: cc2cecbf89fd75b4f99311e86682cbc6, type: 3}
       propertyPath: HP

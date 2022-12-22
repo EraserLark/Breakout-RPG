@@ -5,7 +5,7 @@ public class TurnManager : MonoBehaviour
     GameManager gameMan;
     StageManager stageManager;
 
-    private void Awake()
+    private void Start()
     {
         gameMan = GameObject.Find("GameManager").GetComponent<GameManager>();
         stageManager = GameObject.Find("StageManager").GetComponent<StageManager>();

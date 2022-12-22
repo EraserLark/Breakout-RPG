@@ -25,14 +25,14 @@ public class testBall : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         circleColl = GetComponent<CircleCollider2D>();
         SetMaxVelocity(10f);    //Need to fine tune value
-
-        paddlePoint = GameObject.Find("Paddle").transform.GetChild(0).gameObject;
-        testPaddle = GameObject.Find("Paddle").GetComponent<testPaddle>();
-        paddle = GameObject.Find("Paddle");
     }
 
     private void Start()
     {
+        paddlePoint = GameObject.Find("Paddle").transform.GetChild(0).gameObject;
+        testPaddle = GameObject.Find("Paddle").GetComponent<testPaddle>();
+        paddle = GameObject.Find("Paddle");
+
         circleColl.enabled = false;
     }
 

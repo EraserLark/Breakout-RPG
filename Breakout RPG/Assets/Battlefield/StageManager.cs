@@ -16,16 +16,16 @@ public class StageManager : MonoBehaviour
     private void Awake()
     {
         prefBall = AssetDatabase.LoadAssetAtPath("Assets/Battlefield/Ball/Ball.prefab", typeof(GameObject));
+    }
 
+    private void Start()
+    {
         paddle = GameObject.Find("Paddle");
         canvas = GameObject.Find("Canvas");
         winScreen = canvas.transform.Find("WinPanel").gameObject;
         loseScreen = canvas.transform.Find("Lose").gameObject;
         attackMenu = canvas.transform.Find("AttackMenu").gameObject;
-    }
 
-    private void Start()
-    {
         StageSetUp();
     }
 

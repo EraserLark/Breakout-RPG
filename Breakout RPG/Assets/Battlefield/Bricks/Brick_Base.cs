@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEditor;
 
 public class Brick_Base : MonoBehaviour
 {
@@ -6,9 +7,13 @@ public class Brick_Base : MonoBehaviour
     Color[] healthColors = { Color.red, Color.blue, Color.yellow };
     Color brickColor;
 
+    Object prefProjectile;
+
     private void Awake()
     {
+        prefProjectile = AssetDatabase.LoadAssetAtPath("Assets/Battlefield/Bricks/BrickProjectile.prefab", typeof(GameObject));
         ChangeColor(HP);
+        StartRandTimer();
     }
 
     private void OnValidate()
@@ -21,6 +26,18 @@ public class Brick_Base : MonoBehaviour
         int arrayHP = hp - 1;
         brickColor = healthColors[arrayHP];
         GetComponent<SpriteRenderer>().color = brickColor;
+    }
+
+    void BrickAttack()
+    {
+        Instantiate(prefProjectile, this.transform);
+        StartRandTimer();
+    }
+
+    void StartRandTimer()
+    {
+        float waitTime = Random.Range(1f, 10f);
+        Invoke("BrickAttack", waitTime);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

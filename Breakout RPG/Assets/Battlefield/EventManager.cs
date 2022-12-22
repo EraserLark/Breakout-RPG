@@ -10,7 +10,7 @@ public class EventManager : MonoBehaviour
     TurnManager turnManager;
     StageManager stageManager;
 
-    private void Awake()
+    private void Start()
     {
         winScreen = GameObject.Find("Win").gameObject;
         paddle = GameObject.Find("Paddle").GetComponent<testPaddle>();
@@ -18,10 +18,7 @@ public class EventManager : MonoBehaviour
         deathField = GameObject.Find("DeathField").GetComponent<DeathField>();
         turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
         stageManager = GameObject.Find("StageManager").GetComponent<StageManager>();
-    }
 
-    private void Start()
-    {
         deathField.ballIsDead += stageManager.BallDeathRoutine;
     }
 

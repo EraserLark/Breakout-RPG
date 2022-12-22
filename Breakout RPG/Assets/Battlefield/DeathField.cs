@@ -6,7 +6,7 @@ public class DeathField : MonoBehaviour
     public event BallCollide ballIsDead;   //Event
 
     PlayerManager playerManager;
-    private void Awake()
+    private void Start()
     {
         playerManager = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
     }
@@ -14,10 +14,16 @@ public class DeathField : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         testBall ball = collision.gameObject.GetComponent<testBall>();
-        if(ball != null)
+        BrickProjectile bp = collision.gameObject.GetComponent<BrickProjectile>();
+        if (ball != null)
         {
             ballIsDead?.Invoke();   //If 'ballIsDead' is not null...
             playerManager.TakeDamage(3);
+        }
+        else if(bp != null)
+        {
+            playerManager.TakeDamage(1);
+            bp.DestroyProjectile();
         }
     }
 }

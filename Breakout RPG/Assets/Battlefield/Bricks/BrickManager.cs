@@ -7,8 +7,12 @@ public class BrickManager : MonoBehaviour
 
     private void Awake()
     {
-        turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
         brickCount = gameObject.transform.childCount;
+    }
+
+    private void Start()
+    {
+        turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
     }
 
     public void BrickBroken()
