@@ -4,6 +4,7 @@ using UnityEditor;
 public class Brick_Base : MonoBehaviour
 {
     public int HP = 1;
+    public bool attacking = false;
     Color[] healthColors = { Color.red, Color.blue, Color.yellow };
     Color brickColor;
 
@@ -30,7 +31,10 @@ public class Brick_Base : MonoBehaviour
 
     void BrickAttack()
     {
-        Instantiate(prefProjectile, this.transform);
+        if(attacking)
+        {
+            Instantiate(prefProjectile, this.transform);
+        }
         StartRandTimer();
     }
 
@@ -38,6 +42,11 @@ public class Brick_Base : MonoBehaviour
     {
         float waitTime = Random.Range(1f, 10f);
         Invoke("BrickAttack", waitTime);
+    }
+
+    public void AttackState(bool state)
+    {
+        attacking = state;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

@@ -13,6 +13,10 @@ public class StageManager : MonoBehaviour
     GameObject loseScreen;
     GameObject attackMenu;
 
+    EventManager eventMan;
+    public delegate void BrickStopFire();
+    public event BrickStopFire brickCeaseFire;
+
     private void Awake()
     {
         prefBall = AssetDatabase.LoadAssetAtPath("Assets/Battlefield/Ball/Ball.prefab", typeof(GameObject));
@@ -25,6 +29,7 @@ public class StageManager : MonoBehaviour
         winScreen = canvas.transform.Find("WinPanel").gameObject;
         loseScreen = canvas.transform.Find("Lose").gameObject;
         attackMenu = canvas.transform.Find("AttackMenu").gameObject;
+        eventMan = GameObject.Find("EventManager").GetComponent<EventManager>();
 
         StageSetUp();
     }
@@ -46,11 +51,13 @@ public class StageManager : MonoBehaviour
     public void ChooseRoutine()
     {
         attackMenu.SetActive(true);
+        brickCeaseFire?.Invoke();   //event
     }
 
     public void SpawnBall()
     {
         this.ball = Instantiate(prefBall, paddle.transform.GetChild(0).transform.position, Quaternion.identity) as GameObject;
+        eventMan.NewBall(this.ball.GetComponent<testBall>()); //Passes ball ref to the event manager (messy)
     }
 
     public void BallDeathRoutine()

@@ -17,8 +17,12 @@ public class testBall : MonoBehaviour
     float maxVelocity;
     float sqrMaxVel;
     bool startState = true;
+    bool launchState = false;
     public int hitMax = 3;
     public int hitCount = 0;
+
+    public delegate void BallLaunch();
+    public event BallLaunch ballLaunched;
 
     private void Awake()
     {
@@ -38,10 +42,14 @@ public class testBall : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("Jump") && startState) //Spacebar
+        if (Input.GetButtonDown("Jump")) //Spacebar
         {
-            startState = false;
-            LaunchBall();
+            if (startState)
+            {
+                startState = false;
+                transform.GetChild(0).gameObject.SetActive(true);
+                //LaunchBall();
+            }
         }
 
         if(Input.GetKeyDown(KeyCode.P))
@@ -82,11 +90,14 @@ public class testBall : MonoBehaviour
 
     void LaunchBall()
     {
+        launchState = true;
         float launchAngle = Random.Range(-50, 50);
         Quaternion rotation = Quaternion.AngleAxis(launchAngle, Vector3.forward);
         rb.velocity = rotation * Vector2.up * launchSpeed;
 
         circleColl.enabled = true;
+
+        ballLaunched?.Invoke(); //event
     }
 
     public void PauseBall()
